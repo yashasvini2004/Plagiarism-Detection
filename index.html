@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plagiarism Checker</title>
+    <style>
+        body {
+            background-image: url({{ url_for('static', filename='pbg.jpg') }});
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .left-section {
+            flex: 1;
+            padding: 20px;
+        }
+        .right-section {
+            flex: 1;
+            padding: 20px;
+            position: relative;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            position:absolute;
+            top:100%;
+            left:20%;
+            right:50%;
+        }
+        h1 {
+            font-size: 48px; /* Adjust the font size to make it larger */
+            color: blue;
+            text-align: center;
+            margin-top: 20px; /* Adjust the margin top */
+            position: absolute; /* Position the heading absolutely */
+            top: 50px; /* Set top to position vertically */
+            left: 50%; /* Set left to center horizontally */
+            transform: translateX(-50%); /* Move the heading to center horizontally */
+        }
+        p {
+            margin: 20px 0;
+            line-height: 1.5;
+        }
+        .btn-container {
+            position: absolute;
+            top: 500%;
+            bottom:150%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .linkedin {
+    color: blue;
+    font-size: 18px; /* Adjust the font size as needed */
+    text-align: left; /* Align text to the left */
+}
+        .author {
+    color: blue;
+    font-size: 24px; /* Adjust the font size as needed */
+    margin-bottom: 20px; /* Adjust the margin bottom */
+    text-align: left; /* Align text to the left */
+}
+
+
+        .btn {
+            display: block;
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: transparent;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            font-size: 14px;
+            text-align: left;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="left-section">
+    <div class="container">
+        <p>In our project, we're dedicated to detecting instances of content plagiarism within uploaded files by comparing them against existing documents. Our methodology relies on cosine similarity, a robust measure for assessing the resemblance between textual content. Initially, we preprocess the text to standardize its format, removing common stopwords and reducing words to their base forms if necessary. Following this, we transform the processed text into numerical vectors using techniques like TF-IDF. These vectors enable us to quantify the semantic similarities between documents accurately. By computing the cosine similarity scores between pairs of documents, we effectively identify instances of potential plagiarism. This approach not only aids in safeguarding against intellectual property infringement but also ensures the integrity of original content across various platforms and domains</p>
+    </div>
+    <p class="author">Dondula Yashasvini</p>
+    <p class="linkedin"><a href="https://www.linkedin.com/in/yashasvini-dondula">LinkedIn</a></p>
+</div>
+
+<div class="right-section">
+    <div class="btn-container">
+        <form method="post" enctype="multipart/form-data" action="/">
+            <input type="file" name="file" class="btn"><br><br>
+            <input type="submit" value="Check Plagiarism" class="btn">
+        </form>
+    </div>
+</div>
+
+<h1>Plagiarism Detection</h1>
+
+
+
+</body>
+</html>

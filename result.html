@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plagiarism Detection Result</title>
+    <style>
+        body {
+            background-image: url({{ url_for('static', filename='pbg.jpg') }});
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: black;
+            margin: 0;
+            padding: 0;
+            text-align: center; /* Center align text */
+        }
+        h1 {
+            color: blue; /* Blue color for heading */
+            margin-top: 50px; /* Add space from the top */
+            font-size:500%;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%; /* Adjust table width */
+            margin: auto; /* Center align table */
+        }
+        th, td {
+            border: 1px solid #000; /* Black borders */
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #plagiarismMessage {
+            font-size: 50px; /* Decrease font size */
+            font-weight: bold; /* Bold font weight */
+            margin-top: 20px; /* Add space from the top */
+        }
+        .plagiarized {
+            color: red;
+        }
+        .not-plagiarized {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Plagiarism Detection Result</h1>
+    <table>
+        <tr>
+            <th>Uploaded File</th>
+            <th>Other File</th>
+            <th>Similarity Score</th>
+            <th>Plagiarized</th>
+        </tr>
+        {% for result in plagiarism_results %}
+        <tr>
+            <td>{{ result[0] }}</td>
+            <td>{{ result[1] }}</td>
+            <td>{{ result[2] }}</td>
+            <td id="plagiarized{{ loop.index }}"></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p id="plagiarismMessage"></p>
+    
+    <script>
+        // Function to check if any similarity score is greater than a threshold
+        function checkPlagiarism() {
+            var plagiarismResults = {{ plagiarism_results | tojson }};
+            var plagiarized = false;
+
+            for (var i = 0; i < plagiarismResults.length; i++) {
+                var similarityScore = plagiarismResults[i][2];
+                var isPlagiarized = similarityScore > 0.8;
+                var element = document.getElementById('plagiarized' + (i + 1));
+                element.innerText = isPlagiarized ? 'Yes' : 'No';
+                element.className = isPlagiarized ? 'plagiarized' : 'not-plagiarized';
+                
+                if (isPlagiarized) {
+                    plagiarized = true;
+                }
+            }
+
+            var messageElement = document.getElementById('plagiarismMessage');
+            var message = plagiarized ? 'Some content is plagiarized.' : 'No content is plagiarized.';
+            messageElement.innerText = message;
+            messageElement.className = plagiarized ? 'plagiarized' : 'not-plagiarized';
+        }
+
+        // Call the function when the page loads
+        window.onload = checkPlagiarism;
+    </script>
+</body>
+</html>
